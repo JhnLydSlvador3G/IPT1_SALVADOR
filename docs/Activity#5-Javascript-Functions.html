@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDAS Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .calculator {
+            display: inline-block;
+            padding: 20px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            background-color: #f4f4f4;
+        }
+        #display {
+            width: 230px;
+            height: 50px;
+            text-align: right;
+            font-size: 30px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 60px);
+            grid-gap: 10px;
+        }
+        .buttons button {
+            padding: 15px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .buttons button:active {
+            background-color: #ccc;
+        }
+        #fontSizeControls {
+            margin-top: 20px;
+        }
+        #fontSizeControls button {
+            padding: 10px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <div id="display">0</div>
+        <div class="buttons">
+            <button onclick="appendNumber(7)">7</button>
+            <button onclick="appendNumber(8)">8</button>
+            <button onclick="appendNumber(9)">9</button>
+            <button onclick="appendOperator('+')">+</button>
+            <button onclick="appendNumber(4)">4</button>
+            <button onclick="appendNumber(5)">5</button>
+            <button onclick="appendNumber(6)">6</button>
+            <button onclick="appendOperator('-')">-</button>
+            <button onclick="appendNumber(1)">1</button>
+            <button onclick="appendNumber(2)">2</button>
+            <button onclick="appendNumber(3)">3</button>
+            <button onclick="appendOperator('*')">*</button>
+            <button onclick="appendNumber(0)">0</button>
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="calculate()">=</button>
+            <button onclick="appendOperator('/')">/</button>
+        </div>
+        
+        <div id="fontSizeControls">
+            <button onclick="changeFontSize('increase')">A+</button>
+            <button onclick="changeFontSize('decrease')">A-</button>
+        </div>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+        let fontSize = 30;
+
+        // Function to append numbers to the display
+        function appendNumber(number) {
+            if (display.innerText === "0") {
+                display.innerText = number;
+            } else {
+                display.innerText += number;
+            }
+        }
+
+        // Function to append operators to the display
+        function appendOperator(operator) {
+            display.innerText += ' ' + operator + ' ';
+        }
+
+        // Function to clear the display
+        function clearDisplay() {
+            display.innerText = "0";
+        }
+
+        // Function to calculate the result based on MDAS
+        function calculate() {
+            try {
+                let result = eval(display.innerText);
+                display.innerText = result;
+            } catch (error) {
+                display.innerText = "Error";
+            }
+        }
+
+        // Function to change the font size
+        function changeFontSize(action) {
+            if (action === 'increase' && fontSize < 50) {
+                fontSize += 5;
+            } else if (action === 'decrease' && fontSize > 15) {
+                fontSize -= 5;
+            }
+            display.style.fontSize = fontSize + 'px';
+        }
+    </script>
+
+</body>
+</html>
